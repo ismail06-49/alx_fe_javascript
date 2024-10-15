@@ -8,8 +8,8 @@ quoteCategory.id = 'quoteCategory'
 const quoteText = document.createElement('p')
 quoteText.id = 'quoteText'
 const newQuote = document.getElementById('newQuote')
-const addQuoteForm = document.createElement('div')
-addQuoteForm.id = 'addQuoteForm'
+const createAddQuoteForm = document.createElement('div')
+createAddQuoteForm.id = 'createAddQuoteForm'
 const newQuoteText = document.createElement('input')
 newQuoteText.id = 'newQuoteText'
 newQuoteText.placeholder = 'Text'
@@ -21,11 +21,11 @@ add.textContent = "Add Quote"
 add.addEventListener(('click'), addQuote)
 const body = document.getElementsByTagName('body');
 
-addQuoteForm.appendChild(document.createElement('br'))
-addQuoteForm.appendChild(newQuoteCategory)
-addQuoteForm.appendChild(newQuoteText)
-addQuoteForm.appendChild(add)
-body[0].appendChild(addQuoteForm);
+createAddQuoteForm.appendChild(document.createElement('br'))
+createAddQuoteForm.appendChild(newQuoteCategory)
+createAddQuoteForm.appendChild(newQuoteText)
+createAddQuoteForm.appendChild(add)
+body[0].appendChild(createAddQuoteForm);
 
 function addQuote() {
     const newQuoteTextValue = newQuoteText.value.trim()
@@ -36,7 +36,6 @@ function addQuote() {
             category:  newQuoteCategoryValue
         })
     }
-    addQuoteForm
     newQuoteText.value = ''
     newQuoteCategory.value = ''
 }
