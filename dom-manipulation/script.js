@@ -43,8 +43,8 @@ function addQuote() {
 function showRandomQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
-    quoteText.textContent = randomQuote.text;
-    quoteCategory.textContent = randomQuote.category
+    quoteText.innerHTML = randomQuote.text;
+    quoteCategory.innerHTML = randomQuote.category
     quoteDisplay.appendChild(quoteCategory)
     quoteDisplay.appendChild(quoteText)
 }
