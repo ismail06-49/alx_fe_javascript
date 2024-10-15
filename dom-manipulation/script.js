@@ -36,6 +36,7 @@ function addQuote() {
             category:  newQuoteCategoryValue
         })
     }
+    addQuoteForm
     newQuoteText.value = ''
     newQuoteCategory.value = ''
 }
