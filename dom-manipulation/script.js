@@ -68,10 +68,8 @@ function showRandomQuote() {
 newQuote.addEventListener(('click'), showRandomQuote)
 
 // JSON Export
-const exportButton = document.createElement('button');
+const exportButton = document.getElementById('exportQuotes');
 exportButton.textContent = "Export Quotes";
-body[0].appendChild(document.createElement('br'))
-body[0].appendChild(exportButton);
 
 exportButton.addEventListener('click', () => {
     const jsonQuotes = JSON.stringify(quotes);
