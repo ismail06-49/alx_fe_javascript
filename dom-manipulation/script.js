@@ -69,7 +69,6 @@ newQuote.addEventListener(('click'), showRandomQuote)
 
 // JSON Export
 const exportButton = document.getElementById('exportQuotes');
-exportButton.textContent = "Export Quotes";
 
 exportButton.addEventListener('click', () => {
     const jsonQuotes = JSON.stringify(quotes);
@@ -83,10 +82,7 @@ exportButton.addEventListener('click', () => {
 });
 
 // JSON Import
-const importInput = document.createElement('input');
-importInput.type = 'file';
-importInput.accept = '.json';
-body[0].appendChild(importInput);
+const importInput = document.getElementById('importFile');
 
 importInput.addEventListener('change', (e) => {
     const file = importInput.files[0];
