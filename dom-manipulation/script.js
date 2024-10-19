@@ -228,7 +228,7 @@ function syncQuotesWithServer(serverQuotes) {
     // Store the updated quotes array in local storage
     if (updated) {
         localStorage.setItem('quotes', JSON.stringify(quotes));
-        alert('Quotes updated from server.');
+        alert('Quotes synced with server!');
     }
 }
 
