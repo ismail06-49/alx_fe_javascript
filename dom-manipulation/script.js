@@ -1,7 +1,7 @@
 // Initialize the quotes array from local storage.
 let quotes = JSON.parse(localStorage.getItem('quotes')) || []
 
-// Get references to the quote display and new quote elementss
+// Get references to the quote display and new quote elements
 const quoteDisplay = document.getElementById('quoteDisplay')
 const quoteCategory = document.createElement('h2')
 quoteCategory.id = 'quoteCategory'
@@ -177,3 +177,53 @@ window.onload = () => {
         filterQuotes(); // Display quotes for the last selected category
     }
 };
+
+// Mock API URL
+const SERVER_URL = 'https://jsonplaceholder.typicode.com/posts'; 
+
+// Function to fetch quotes from the server
+async function fetchQuotesFromServer() {
+    try {
+        const response = await fetch(SERVER_URL);
+        const serverQuotes = await response.json();
+        // Assuming server returns an array of quotes
+        return serverQuotes.map(quote => ({
+            text: quote.title, // Use title as quote text
+            category: 'General' // Assign a default category
+        }));
+    } catch (error) {
+        console.error('Error fetching quotes from server:', error);
+        return [];
+    }
+}
+
+// Periodically fetch quotes every 5 minutes
+setInterval(async () => {
+    const serverQuotes = await fetchQuotesFromServer();
+    syncQuotesWithServer(serverQuotes);
+}, 300000);
+
+function syncQuotesWithServer(serverQuotes) {
+    // Check for discrepancies and resolve conflicts
+    const localQuotesMap = new Map(quotes.map(quote => [quote.text, quote]));
+    let updated = false;
+
+    serverQuotes.forEach(serverQuote => {
+        const localQuote = localQuotesMap.get(serverQuote.text);
+        if (!localQuote) {
+            // If the quote does not exist locally, add it
+            quotes.push(serverQuote);
+            updated = true;
+        } else {
+            // If the quote exists locally, we assume server data takes precedence
+            Object.assign(localQuote, serverQuote);
+            updated = true;
+        }
+    });
+
+    // Store the updated quotes array in local storage
+    if (updated) {
+        localStorage.setItem('quotes', JSON.stringify(quotes));
+        alert('Quotes updated from server.');
+    }
+}
