@@ -48,6 +48,10 @@ function addQuote() {
         })
         // Store the updated quotes array in local storage
         localStorage.setItem('quotes', JSON.stringify(quotes));
+
+        // Post the new quote to the server
+        postQuoteToServer(newQuote);
+        
         // Update the category dropdown if the new category is not already present
         if (!categoryOption.includes(newQuoteCategoryValue)) {
             categoryOption.push(newQuoteCategoryValue);
@@ -225,5 +229,27 @@ function syncQuotesWithServer(serverQuotes) {
     if (updated) {
         localStorage.setItem('quotes', JSON.stringify(quotes));
         alert('Quotes updated from server.');
+    }
+}
+
+// Function to post a new quote to the server
+async function postQuoteToServer(quote) {
+    try {
+        const response = await fetch(SERVER_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(quote)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        console.log('Quote posted successfully:', result);
+    } catch (error) {
+        console.error('Error posting quote to server:', error);
     }
 }
